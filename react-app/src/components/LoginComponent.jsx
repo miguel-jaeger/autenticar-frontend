@@ -4,7 +4,7 @@ function LoginComponent() {
     const [nombre, setNombre] = useState('');
     const [password, setPassword] = useState('');
     const [mensaje, setMensaje] = useState('');
-console.log('user:'+nombre+'-----pass:'+password);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -14,11 +14,10 @@ console.log('user:'+nombre+'-----pass:'+password);
                 body: JSON.stringify({ nombre, password }),
             });
             const data = await response.json();
-            console.log('Respuesta del servidor:', data);
             if (response.ok) {
                 localStorage.setItem('jwt', data.token);
-                setMensaje('¡Autenticación exitosa! Token guardado.');
-                console.log('Token JWT:', data.token);
+                setMensaje('¡Autenticación exitosa! Token guardado: ' + data.token);
+              
             } else {
                 setMensaje('Error en la autenticación: ' + data.error);
             }
