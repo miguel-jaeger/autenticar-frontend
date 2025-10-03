@@ -4,16 +4,25 @@ function LoginComponent() {
     const [correo, setCorreo] = useState('');
     const [contrasena, setContrasena] = useState('');
     const [mensaje, setMensaje] = useState('');
-
+    const getAlertClass = () => {
+        if (mensaje.includes('exitosa')) {
+            return 'alert-success'; // Verde para éxito
+        }
+        if (mensaje) {
+            return 'alert-danger'; // Rojo para error (o cualquier otro mensaje)
+        }
+        return ''; // Sin clase si no hay mensaje
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-       
+        const correoLimpio = correo.trim();
+        const contrasenaLimpia = contrasena.trim();
         try {
-            const response = await fetch('https://pbqm7bf1-4002.brs.devtunnels.ms/api/usuarios/autenticarUsuario', {
+            const response = await fetch('https://pbqm7bf1-4002.brs.devtunnels.ms/api/usuarios/autenticar', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ correo: correo, password: contrasena }),
+                body: JSON.stringify({ correo:  correoLimpio, contrasena: contrasenaLimpia }),
             });
             const data = await response.json();
             if (response.ok) {
@@ -27,14 +36,14 @@ function LoginComponent() {
             setMensaje('Error de conexión con el servidor. Intente de nuevo.');
         }
     };
-   return (
+    return (
         // Contenedor para centrar el formulario en la pantalla
-        <div className="container mt-5">
+        <div className="container mt-12">
             <div className="row justify-content-center">
-                <div className="col-md-6 col-lg-4">
+                <div className="col-md-6 col-lg-12">
                     <div className="card shadow-lg p-4">
                         <h3 className="card-title text-center mb-4">Iniciar Sesión</h3>
-                        
+
                         <form onSubmit={handleSubmit}>
                             {/* Campo de Correo */}
                             <div className="mb-3">
@@ -71,7 +80,7 @@ function LoginComponent() {
                                 </button>
                             </div>
                         </form>
-                        
+
                         {/* Mostrar Mensajes de Alerta */}
                         {mensaje && (
                             <div className={`alert ${getAlertClass()} mt-4`} role="alert">
