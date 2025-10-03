@@ -23,7 +23,7 @@ const Header = () => {
               fill="currentColor"
             />
           </svg>
-          <h1 className="h5 mb-0 fw-bold">User Manager</h1>
+          <h1 className="h5 mb-0 fw-bold">Administración de usuarios</h1>
         </Link>
 
         <button 
@@ -45,7 +45,7 @@ const Header = () => {
                 to="/add-user" 
                 className={`nav-link ${isActive('/add-user')}`}
               >
-                Adicionar Usuario
+                Adicionar
               </Link>
             </li>
             <li className="nav-item">
@@ -53,7 +53,7 @@ const Header = () => {
                 to="/users" 
                 className={`nav-link ${isActive('/users')}`}
               >
-                Listar Usuarios
+                Listar
               </Link>
             </li>
           </ul>
