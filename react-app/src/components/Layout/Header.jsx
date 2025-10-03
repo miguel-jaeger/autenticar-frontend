@@ -1,73 +1,77 @@
 import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
-    const location = useLocation();
+  const location = useLocation();
 
-    const isActive = (path) => {
-        return location.pathname === path;
-    };
+  const isActive = (path) => {
+    return location.pathname === path ? 'active' : '';
+  };
 
-    return (
-        <header className="bg-white shadow-sm sticky top-0 z-20">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
-                    {/* Logo y título */}
-                    <div className="flex items-center gap-4">
-                        <Link to="/" className="flex items-center gap-2 text-blue-600">
-                            <svg
-                                className="w-8 h-8"
-                                fill="none"
-                                viewBox="0 0 48 48"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z"
-                                    fill="currentColor"
-                                />
-                            </svg>
-                            <h1 className="text-xl font-bold text-slate-800">User Manager</h1>
-                        </Link>
-                    </div>
+  return (
+    <header className="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
+      <div className="container-fluid">
+        <Link to="/" className="navbar-brand d-flex align-items-center">
+          <svg 
+            className="me-2" 
+            height="32" 
+            viewBox="0 0 48 48" 
+            width="32" 
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path 
+              d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" 
+              fill="currentColor"
+            />
+          </svg>
+          <h1 className="h5 mb-0 fw-bold">User Manager</h1>
+        </Link>
 
-                    {/* Navegación */}
-                    <nav className="hidden md:flex items-center gap-8">
-                        <Link
-                            to="/add-user"
-                            className={`text-sm font-medium transition-colors ${isActive('/add-user')
-                                    ? 'text-blue-600'
-                                    : 'text-slate-600 hover:text-blue-600'
-                                }`}
-                        >
-                            Adicionar Usuario
-                        </Link>
-                        <Link
-                            to="/users"
-                            className={`text-sm font-medium transition-colors ${isActive('/users')
-                                    ? 'text-blue-600'
-                                    : 'text-slate-600 hover:text-blue-600'
-                                }`}
-                        >
-                            Listar Usuarios
-                        </Link>
-                    </nav>
+        <button 
+          className="navbar-toggler" 
+          type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#navbarNav" 
+          aria-controls="navbarNav" 
+          aria-expanded="false" 
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
 
-                    {/* Botones de acción */}
-                    <div className="flex items-center gap-4">
-                        <Link
-                            to="/login"
-                            className="flex items-center justify-center gap-2 min-w-[120px] h-10 px-4 bg-blue-600 text-white text-sm font-bold rounded-lg shadow-sm hover:bg-blue-700 transition-colors"
-                        >
-                            <span>Autenticar</span>
-                            <span className="material-symbols-outlined text-xl">login</span>
-                        </Link>
-                        <button className="md:hidden flex items-center justify-center size-10 rounded-lg text-slate-600 hover:bg-blue-50">
-                            <span className="material-symbols-outlined">menu</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </header>
-    );
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav mx-auto">
+            <li className="nav-item">
+              <Link 
+                to="/add-user" 
+                className={`nav-link ${isActive('/add-user')}`}
+              >
+                Adicionar Usuario
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link 
+                to="/users" 
+                className={`nav-link ${isActive('/users')}`}
+              >
+                Listar Usuarios
+              </Link>
+            </li>
+          </ul>
+          
+          <div className="d-flex align-items-center mt-3 mt-md-0">
+            <Link 
+              to="/login" 
+              className="btn btn-primary d-flex align-items-center justify-content-center" 
+              role="button"
+            >
+              <span>Autenticar</span>
+              <span className="material-symbols-outlined ms-2">login</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
 };
 
 export default Header;

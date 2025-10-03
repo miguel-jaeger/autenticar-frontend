@@ -1,35 +1,30 @@
 const Footer = () => {
-    return (
-        <footer className="bg-white border-t border-slate-200 mt-auto">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p className="text-sm text-slate-600">
-                        © 2025 User Manager. Todos los derechos reservados.
-                    </p>
-                    <div className="flex items-center gap-6">
-                        <a
-                            href="#"
-                            className="text-sm text-slate-600 hover:text-blue-600 transition-colors"
-                        >
-                            Privacidad
-                        </a>
-                        <a
-                            href="#"
-                            className="text-sm text-slate-600 hover:text-blue-600 transition-colors"
-                        >
-                            Términos
-                        </a>
-                        <a
-                            href="#"
-                            className="text-sm text-slate-600 hover:text-blue-600 transition-colors"
-                        >
-                            Contacto
-                        </a>
-                    </div>
-                </div>
+  return (
+    <footer className="bg-white border-top mt-auto">
+      <div className="container-fluid py-4">
+        <div className="row align-items-center">
+          <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
+            <p className="mb-0 text-muted small">
+              © 2025 User Manager. Todos los derechos reservados.
+            </p>
+          </div>
+          <div className="col-md-6">
+            <div className="d-flex justify-content-center justify-content-md-end gap-3">
+              <a href="#" className="text-muted text-decoration-none small">
+                Privacidad
+              </a>
+              <a href="#" className="text-muted text-decoration-none small">
+                Términos
+              </a>
+              <a href="#" className="text-muted text-decoration-none small">
+                Contacto
+              </a>
             </div>
-        </footer>
-    );
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;

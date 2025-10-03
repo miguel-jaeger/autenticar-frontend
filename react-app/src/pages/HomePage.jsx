@@ -1,7 +1,7 @@
-import WelcomeSection from '../components/Home/WelcomeSection';
+import WelcomeSection from '@/components/home/WelcomeSection';
 
 const HomePage = () => {
-    return <WelcomeSection />;
+  return <WelcomeSection />;
 };
 
 export default HomePage;
