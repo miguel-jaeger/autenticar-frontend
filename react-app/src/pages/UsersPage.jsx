@@ -1,16 +1,19 @@
+import { Link } from 'react-router-dom';
 const UsersPage = () => {
   return (
-   <main className="flex-grow-1 container-fluid py-4">
+    <main className="flex-grow-1 container-fluid py-4">
       <div className="mx-auto" style={{ maxWidth: '960px' }}>
         <div className="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-4">
           <div>
             <h2 className="h3 fw-bold">Registered Users</h2>
             <p className="text-muted">Manage and filter user accounts.</p>
           </div>
-          <button className="btn btn-primary d-flex align-items-center gap-2">
-            <span className="material-symbols-outlined">add</span>
-            Add User
-          </button>
+          <Link to="/add-user">
+            <button className="btn btn-primary d-flex align-items-center gap-2">
+              <span className="material-symbols-outlined">add</span>
+              Add User
+            </button>
+          </Link>
         </div>
         <div className="d-flex flex-column gap-3 mb-4">
           <div className="input-group">
