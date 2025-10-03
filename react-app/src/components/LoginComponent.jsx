@@ -5,19 +5,21 @@ function LoginComponent() {
     const [contrasena, setContrasena] = useState('');
     const [mensaje, setMensaje] = useState('');
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+       
         try {
-            const response = await fetch('http://localhost:4001/api/usuarios/autenticarUsuario', {
+            const response = await fetch('https://pbqm7bf1-4002.brs.devtunnels.ms/api/usuarios/autenticarUsuario', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ correo, contrasena }),
+                body: JSON.stringify({ correo: correo, password: contrasena }),
             });
             const data = await response.json();
             if (response.ok) {
                 localStorage.setItem('jwt', data.token);
                 setMensaje('¡Autenticación exitosa! Token guardado: ' + data.token);
-              
+
             } else {
                 setMensaje('Error en la autenticación: ' + data.error);
             }
@@ -28,7 +30,7 @@ function LoginComponent() {
     return (
         <form onSubmit={handleSubmit}>
             <h3>Iniciar Sesión</h3>
-            <input type="text" placeholder="Coreo" value={correo} onChange={e => setCorreo(e.target.value)} />
+            <input type="text" placeholder="Correo" value={correo} onChange={e => setCorreo(e.target.value)} />
             <input type="password" placeholder="Contraseña" value={contrasena} onChange={e => setContrasena(e.target.value)} />
             <button type="submit">Iniciar Sesión</button>
             <p>{mensaje}</p>
