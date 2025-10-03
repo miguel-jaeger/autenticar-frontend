@@ -32,11 +32,6 @@ Paso 3: Crear los archivos
 9. src/App.jsx
 10. src/main.jsx
 11. src/index.css
-12. tailwind.config.js
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
-npm install -D @tailwindcss/forms @tailwindcss/container-queries
-
 13. index.html
 
 
