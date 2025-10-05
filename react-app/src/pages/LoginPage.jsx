@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -41,10 +43,10 @@ const LoginPage = () => {
       // Guardar token en localStorage
       localStorage.setItem('token', data.token);
       
-      // También puedes guardar información adicional del usuario
+      // Tambiï¿½n puedes guardar informaciï¿½n adicional del usuario
       localStorage.setItem('userEmail', formData.correo);
 
-      // Redirigir a la página principal
+      // Redirigir a la pï¿½gina principal
       navigate('/');
       
     } catch (err) {
@@ -86,13 +88,13 @@ const LoginPage = () => {
               />
             </div>
             <div className="mb-3">
-              <label className="form-label" htmlFor="contrasena">Contraseña</label>
+              <label className="form-label" htmlFor="contrasena">ContraseÃ±a</label>
               <input
                 autoComplete="current-password"
                 className="form-control"
                 id="contrasena"
                 name="contrasena"
-                placeholder="••••••••"
+                placeholder="ContraseÃ±a"
                 required
                 type="password"
                 value={formData.contrasena}
@@ -100,24 +102,7 @@ const LoginPage = () => {
                 disabled={loading}
               />
             </div>
-            <div className="d-flex justify-content-between align-items-center mb-3">
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                />
-                <label className="form-check-label" htmlFor="remember-me">
-                  Recuerdame
-                </label>
-              </div>
-              <div className="text-sm">
-                <a className="fw-medium" href="#">
-                  Olvido su contraseña?
-                </a>
-              </div>
-            </div>
+           
           </div>
           <div className="mt-4">
             <button 
@@ -138,9 +123,9 @@ const LoginPage = () => {
         </form>
         <p className="mt-3 text-center text-secondary">
           No tiene una cuenta?{' '}
-          <a className="fw-medium" href="#">
-            Registrarse
-          </a>
+           <Link to='/add-user'>                                          <p className="" type="button" disabled={loading}>Registrarse</p>
+                                      </Link>
+          
         </p>
       </div>
     </main>
