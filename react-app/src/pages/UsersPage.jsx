@@ -1,67 +1,8 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import useUserList from '../components/Users/UserList';
 
-const UserList = () => {
-  const [usuarios, setUsuarios] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    cargarUsuarios();
-  }, []);
-
-  const cargarUsuarios = async () => {
-    try {
-      setLoading(true);
-      const token = localStorage.getItem('token'); // Obtener token del login
-      
-      const response = await fetch('http://localhost:4002/api/usuarios', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          /*'Authorization': `Bearer ${token}` // Enviar token en header*/
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error('Error al cargar usuarios');
-      }
-
-      const data = await response.json();
-      setUsuarios(data);
-      setError(null);
-    } catch (err) {
-      setError(err.message);
-      console.error('Error:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const eliminarUsuario = async (usuario) => {
-    if (!window.confirm(`¿Eliminar a ${usuario.nombre} ${usuario.apellido}?`)) {
-      return;
-    }
-
-    try {
-      const token = localStorage.getItem('token');
-      
-      const response = await fetch('http://localhost:4002/api/usuarios', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(usuario)
-      });
-
-      if (response.ok) {
-        cargarUsuarios(); // Recargar lista
-      }
-    } catch (err) {
-      console.error('Error al eliminar:', err);
-    }
-  };
+const UsersPage = () => {
+  const { usuarios, loading, error, eliminarUsuario } = useUserList();
 
   if (loading) {
     return (
@@ -122,7 +63,7 @@ const UserList = () => {
                     <td className="p-3 text-nowrap text-muted">{usuario.apellido}</td>
                     <td className="p-3 text-nowrap text-muted">{usuario.correo}</td>
                     <td className="p-3 text-nowrap">
-                      <span className="badge bg-primary">{usuario.rol}</span>
+                      <span className="badge bg-primary">{usuario.rol || 'Usuario'}</span>
                     </td>
                     <td className="p-3 text-nowrap text-end">
                       <Link to={`/edit-user/${usuario.idPersona}`}>
@@ -150,4 +91,4 @@ const UserList = () => {
   );
 };
 
-export default UserList;
+export default UsersPage;
