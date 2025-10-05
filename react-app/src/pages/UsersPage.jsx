@@ -1,5 +1,86 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-const UsersPage = () => {
+
+const UserList = () => {
+  const [usuarios, setUsuarios] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    cargarUsuarios();
+  }, []);
+
+  const cargarUsuarios = async () => {
+    try {
+      setLoading(true);
+      const token = localStorage.getItem('token'); // Obtener token del login
+      
+      const response = await fetch('http://localhost:4002/api/usuarios', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          /*'Authorization': `Bearer ${token}` // Enviar token en header*/
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al cargar usuarios');
+      }
+
+      const data = await response.json();
+      setUsuarios(data);
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+      console.error('Error:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const eliminarUsuario = async (usuario) => {
+    if (!window.confirm(`¿Eliminar a ${usuario.nombre} ${usuario.apellido}?`)) {
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('token');
+      
+      const response = await fetch('http://localhost:4002/api/usuarios', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(usuario)
+      });
+
+      if (response.ok) {
+        cargarUsuarios(); // Recargar lista
+      }
+    } catch (err) {
+      console.error('Error al eliminar:', err);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="text-center py-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="alert alert-danger m-4" role="alert">
+        Error: {error}
+      </div>
+    );
+  }
+
   return (
     <main className="flex-grow-1 container-fluid py-4">
       <div className="mx-auto" style={{ maxWidth: '960px' }}>
@@ -20,41 +101,47 @@ const UsersPage = () => {
           <table className="table table-hover align-middle">
             <thead className="border-bottom">
               <tr>
-                <th className="p-3 fw-semibold" scope="col">Nombre</th>
-                <th className="p-3 fw-semibold" scope="col">Apellido</th>
-                <th className="p-3 fw-semibold" scope="col">Correo</th>
-                <th className="p-3 fw-semibold text-end" scope="col">Acciones</th>
+                <th className="p-3 fw-semibold">Nombre</th>
+                <th className="p-3 fw-semibold">Apellido</th>
+                <th className="p-3 fw-semibold">Correo</th>
+                <th className="p-3 fw-semibold">Rol</th>
+                <th className="p-3 fw-semibold text-end">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              {[
-                { name: "Sophia", surname: "Clark", email: "sophia.clark@email.com" },
-                { name: "Liam", surname: "Walker", email: "liam.walker@email.com" },
-                { name: "Olivia", surname: "Hall", email: "olivia.hall@email.com" },
-                { name: "Noah", surname: "Young", email: "noah.young@email.com" },
-                { name: "Ava", surname: "King", email: "ava.king@email.com" },
-                { name: "Ethan", surname: "Wright", email: "ethan.wright@email.com" },
-                { name: "Isabella", surname: "Scott", email: "isabella.scott@email.com" },
-                { name: "Mason", surname: "Green", email: "mason.green@email.com" },
-                { name: "Mia", surname: "Baker", email: "mia.baker@email.com" },
-                { name: "Oliver", surname: "Adams", email: "oliver.adams@email.com" },
-              ].map(({ name, surname, email }) => (
-                <tr key={email}>
-                  <td className="p-3 text-nowrap fw-medium">{name}</td>
-                  <td className="p-3 text-nowrap text-muted">{surname}</td>
-                  <td className="p-3 text-nowrap text-muted">{email}</td>
-                  <td className="p-3 text-nowrap text-end">
-                    <button className="btn btn-sm btn-outline-primary d-inline-flex align-items-center gap-1">
-                      <span className="material-symbols-outlined fs-6">stylus_pencil</span>
-                      Editar
-                    </button>
-                    <button className="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1">
-                      <span className="material-symbols-outlined fs-6">delete</span>
-                      Eliminar
-                    </button>
+              {usuarios.length === 0 ? (
+                <tr>
+                  <td colSpan="5" className="text-center py-4 text-muted">
+                    No hay usuarios registrados
                   </td>
                 </tr>
-              ))}
+              ) : (
+                usuarios.map((usuario) => (
+                  <tr key={usuario.idPersona}>
+                    <td className="p-3 text-nowrap fw-medium">{usuario.nombre}</td>
+                    <td className="p-3 text-nowrap text-muted">{usuario.apellido}</td>
+                    <td className="p-3 text-nowrap text-muted">{usuario.correo}</td>
+                    <td className="p-3 text-nowrap">
+                      <span className="badge bg-primary">{usuario.rol}</span>
+                    </td>
+                    <td className="p-3 text-nowrap text-end">
+                      <Link to={`/edit-user/${usuario.idPersona}`}>
+                        <button className="btn btn-sm btn-outline-primary d-inline-flex align-items-center gap-1 me-2">
+                          <span className="material-symbols-outlined fs-6">stylus_pencil</span>
+                          Editar
+                        </button>
+                      </Link>
+                      <button 
+                        onClick={() => eliminarUsuario(usuario)}
+                        className="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1"
+                      >
+                        <span className="material-symbols-outlined fs-6">delete</span>
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
@@ -63,4 +150,4 @@ const UsersPage = () => {
   );
 };
 
-export default UsersPage;
+export default UserList;
