@@ -8,7 +8,8 @@ const AddUser = ({
     loading = false,
     error = null,
     setError = () => { },
-    cancelPath = '/'
+    cancelPath = '/',
+    showRol = false  // <<< nuevo prop para controlar la visibilidad del campo rol
 }) => {
     return (
         <div className="d-flex align-items-center justify-content-center" style={{ minHeight: 'calc(100vh - 56px)' }}>
@@ -92,20 +93,22 @@ const AddUser = ({
                             />
                         </div>
 
-                        <div className="mb-4">
-                            <label className="form-label" htmlFor="rol">Rol</label>
-                            <select
-                                className="form-select form-select-lg"
-                                id="rol"
-                                name="rol"
-                                value={formData.rol}
-                                onChange={onChange}
-                                disabled={loading}
-                            >
-                                <option value="USER">Usuario</option>
-                                <option value="ADMIN">Administrador</option>
-                            </select>
-                        </div>
+                       
+                        {showRol && (
+                            <div className="mb-4">
+                                <label className="form-label" htmlFor="rol">Rol</label>
+                                <select
+                                    className="form-select form-select-lg"
+                                    id="rol"
+                                    name="rol"
+                                    value={formData.rol}
+                                    onChange={onChange}
+                                >
+                                    <option value="USER">Usuario</option>
+                                    <option value="ADMIN">Administrador</option>
+                                </select>
+                            </div>
+                        )}
 
                         <div className="d-flex justify-content-end gap-2">
                             <button className="btn btn-primary btn-md" type="submit" disabled={loading}>
