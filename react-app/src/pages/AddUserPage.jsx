@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AddUser from '../components/Users/AddUser';
+import { API_URL } from '../config';
 
 const AddUserPage = () => {
   const [formData, setFormData] = useState({
@@ -46,7 +47,7 @@ const AddUserPage = () => {
       const token = localStorage.getItem('token');
       if (!token) throw new Error('No token');
 
-      const res = await fetch('http://localhost:4002/api/admin/registrar', {
+      const res = await fetch(`${API_URL}/admin/registrar`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
