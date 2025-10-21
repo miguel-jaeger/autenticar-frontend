@@ -8,7 +8,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  
+
   const [formData, setFormData] = useState({
     correo: '',
     contrasena: ''
@@ -25,7 +25,7 @@ const LoginPage = () => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-console.log(API_URL);
+    console.log(API_URL);
     try {
       const response = await fetch(`${API_URL}/usuarios/autenticar`, {
         method: 'POST',
@@ -43,13 +43,13 @@ console.log(API_URL);
 
       // Guardar token en localStorage
       localStorage.setItem('token', data.token);
-      
+
       // Tambi�n puedes guardar informaci�n adicional del usuario
       localStorage.setItem('userEmail', formData.correo);
 
       // Redirigir a la p�gina principal
       navigate('/');
-      
+
     } catch (err) {
       setError(err.message);
       console.error('Error de autenticacion:', err);
@@ -103,11 +103,11 @@ console.log(API_URL);
                 disabled={loading}
               />
             </div>
-           
+
           </div>
           <div className="mt-4">
-            <button 
-              className="w-100 btn btn-primary btn-lg" 
+            <button
+              className="w-100 btn btn-primary btn-lg"
               type="submit"
               disabled={loading}
             >
@@ -122,12 +122,12 @@ console.log(API_URL);
             </button>
           </div>
         </form>
-        <p className="mt-3 text-center text-secondary">
-          No tiene una cuenta?{' '}
-           <Link to='/add-user'>                                          <p className="" type="button" disabled={loading}>Registrarse</p>
-                                      </Link>
-          
-        </p>
+        <div className="mt-3 text-center text-secondary">
+          ¿No tienes cuenta? {/* Don't have an account? */}
+          <Link to="/add-user" className="ms-1 text-decoration-none">
+            Regístrate aquí
+          </Link>
+        </div>
       </div>
     </main>
   );
