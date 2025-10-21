@@ -18,7 +18,7 @@ const useUserList = () => {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    // 'Authorization': `Bearer ${token}` // Descomentar cuando uses JWT
+                     'Authorization': `Bearer ${token}` // Descomentar cuando uses JWT
                 }
             });
 
@@ -45,7 +45,7 @@ const useUserList = () => {
         try {
             const token = localStorage.getItem('token');
 
-            const response = await fetch('http://localhost:4002/api/usuarios', {
+            const response = await fetch(`${API_URL}/usuarios`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
