@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import RequireAuth from './components/Auth/RequireAuth';
 //import MainLayout from '@/components/layout/MainLayout';
-import MainLayout from './components/layout/MainLayout';
+import MainLayout from './components/layout/MainLayout.jsx';
 import HomePage from '@/pages/HomePage';
 import AddUserPage from '@/pages/AddUserPage';
 import UsersPage from '@/pages/UsersPage';
