@@ -25,7 +25,7 @@ const LoginPage = () => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-
+console.log(API_URL);
     try {
       const response = await fetch(`${API_URL}/usuarios/autenticar`, {
         method: 'POST',
