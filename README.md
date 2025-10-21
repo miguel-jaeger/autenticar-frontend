@@ -35,3 +35,39 @@ Paso 3: Crear los archivos
 13. index.html
 
 
+Actualizar para despliegue
+{
+  "name": "mi-app",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.9.3"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "@vitejs/plugin-react": "^4.0.0"
+  }
+}
+
+
+Instalar dependencias:
+npm install react react-dom react-router-dom react-scripts --save
+
+
+Probar en desarrollo:
+npm start
+
+Generar build de producción:
+npm run build
+
+
+
+
