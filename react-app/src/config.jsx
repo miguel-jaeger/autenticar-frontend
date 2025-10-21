@@ -1,2 +1,2 @@
-export const API_URL = "http://localhost:4002/api";
+export const API_URL = "https://autenticar-backend.onrender.com/api";
 console.log(API_URL);
