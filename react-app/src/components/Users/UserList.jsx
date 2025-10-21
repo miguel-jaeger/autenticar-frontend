@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_URL } from './config';
 
 const useUserList = () => {
     const [usuarios, setUsuarios] = useState([]);
@@ -13,8 +14,7 @@ const useUserList = () => {
         try {
             setLoading(true);
             const token = localStorage.getItem('token');
-
-            const response = await fetch('http://localhost:4002/api/usuarios', {
+            const response = await fetch(`${API_URL}/usuarios`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
