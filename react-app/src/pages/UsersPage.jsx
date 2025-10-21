@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import useUserList from '../components/Users/UserList';
+import { API_URL } from '../config';
 
 const UsersPage = () => {
   const { usuarios, loading, error, eliminarUsuario } = useUserList();
