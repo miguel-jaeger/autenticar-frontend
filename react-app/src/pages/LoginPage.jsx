@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { API_URL } from '../config.jsx';
+import { API_URL } from '../config';
 
 
 const LoginPage = () => {
