@@ -50,8 +50,8 @@ const AddUserPage = () => {
       const res = await fetch(`${API_URL}/admin/registrar`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
-         // 'Authorization': `Bearer ${token}`
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
           ...formData,
