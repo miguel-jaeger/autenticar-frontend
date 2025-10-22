@@ -44,8 +44,8 @@ const AddUserPage = () => {
     setError(null);
 
     try {
-      //const token = localStorage.getItem('token');
-      //if (!token) throw new Error('No token');
+      const token = localStorage.getItem('token');
+      if (!token) throw new Error('No token');
 
       const res = await fetch(`${API_URL}/admin/registrar`, {
         method: 'POST',
