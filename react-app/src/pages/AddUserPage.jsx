@@ -21,7 +21,7 @@ const AddUserPage = () => {
     try {
      const token = localStorage.getItem('token');
       if (token) {
-       // const raw = token.startsWith('Bearer ') ? token.split(' ')[1] : token;
+        const raw = token.startsWith('Bearer ') ? token.split(' ')[1] : token;
         const payload = JSON.parse(atob(raw.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
         const roles = payload.roles || [];
         if (roles.includes('ADMIN')) {
