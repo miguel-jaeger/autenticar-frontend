@@ -19,9 +19,9 @@ const AddUserPage = () => {
   // Leer rol del usuario autenticado desde el token
   useEffect(() => {
     try {
-      const token = localStorage.getItem('token');
+     const token = localStorage.getItem('token');
       if (token) {
-        const raw = token.startsWith('Bearer ') ? token.split(' ')[1] : token;
+       // const raw = token.startsWith('Bearer ') ? token.split(' ')[1] : token;
         const payload = JSON.parse(atob(raw.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
         const roles = payload.roles || [];
         if (roles.includes('ADMIN')) {
@@ -44,14 +44,14 @@ const AddUserPage = () => {
     setError(null);
 
     try {
-      const token = localStorage.getItem('token');
-      if (!token) throw new Error('No token');
+      //const token = localStorage.getItem('token');
+      //if (!token) throw new Error('No token');
 
       const res = await fetch(`${API_URL}/admin/registrar`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Content-Type': 'application/json'
+         // 'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
           ...formData,

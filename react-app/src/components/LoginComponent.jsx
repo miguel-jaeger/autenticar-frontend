@@ -76,7 +76,7 @@ function LoginComponent() {
                             {/* Botón de Submit */}
                             <div className="d-grid gap-2">
                                 <button type="submit" className="btn btn-primary">
-                                    Iniciar Sesión
+                                    Iniciar Sesiónaaaaa
                                 </button>
                             </div>
                         </form>
